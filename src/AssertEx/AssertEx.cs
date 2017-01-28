@@ -5,6 +5,9 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
     using System.Globalization;
     using System.Text;
     
+    /// <summary>
+    /// Extensions for the MSTest Assertions.
+    /// </summary>
     public static class AssertEx
     {
         /// <summary>
@@ -46,6 +49,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
         /// AssertFailedException
         /// </code>
         /// if code does not throw exception that contains the specified message or throws exception of type other than <typeparamref name="T"/>.
+        /// </summary>
         /// <param name="action">
         /// Delegate to code to be tested and which is expected to throw exception.
         /// </param>
@@ -77,10 +81,6 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
         /// <param name="action">
         /// Delegate to code to be tested and which is expected to throw exception.
         /// </param>
-        /// <param name="message">
-        /// The message to include in the exception when <paramref name="action"/>
-        /// does not throws exception of type <typeparamref name="T"/>.
-        /// </param>
         /// <typeparam name="T">
         /// Type of exception expected to be thrown.
         /// </typeparam>
@@ -105,10 +105,6 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
         /// </summary>
         /// <param name="action">
         /// Delegate to code to be tested and which is expected to throw exception.
-        /// </param>
-        /// <param name="message">
-        /// The message to include in the exception when <paramref name="action"/>
-        /// does not throws exception of type <typeparamref name="T"/>.
         /// </param>
         /// <typeparam name="T">
         /// Type of exception expected to be thrown.

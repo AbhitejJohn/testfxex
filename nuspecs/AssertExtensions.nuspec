@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MSTest.Assert.Extensions</id>
+    <version>1.0.0-preview</version>
+    <title>MSTest.Assert.Extensions</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+	 Assert Extensions for the Microsoft Test Framework - MSTest V2
+    </description>
+    <tags>MSTest TestFramework Assertion Unittest MSTestV2 Test Testing TDD Framework</tags>
+  </metadata>
+  <files>
+    <!--DotNet-->
+    <file src="..\src\AssertEx\bin\release\netcoreapp1.0\MSTest.TestFramework.AssertExtensions.dll" target="lib\netcoreapp1.0" />
+    <file src="..\src\AssertEx\bin\release\netcoreapp1.0\MSTest.TestFramework.AssertExtensions.xml" target="lib\netcoreapp1.0" />
+    <file src="..\src\AssertEx\bin\release\net45\MSTest.TestFramework.AssertExtensions.dll" target="lib\net45" />
+    <file src="..\src\AssertEx\bin\release\net45\MSTest.TestFramework.AssertExtensions.xml" target="lib\net45" />
+  </files>
+</package>
