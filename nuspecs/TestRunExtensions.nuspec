@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MSTest.TestRun.Extensions</id>
+    <version>1.0.0-preview</version>
+    <title>MSTest.TestRun.Extensions</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+	 Test Run Extensions for the Microsoft Test Framework - MSTest V2
+    </description>
+    <tags>MSTest TestFramework Assertion Unittest MSTestV2 Test Testing TDD Framework</tags>
+  </metadata>
+  <files>
+    <file src="..\src\TestRunEx\bin\release\netcoreapp1.0\MSTest.TestFramework.TestRunExtensions.dll" target="lib\netcoreapp1.0" />
+    <file src="..\src\TestRunEx\bin\release\netcoreapp1.0\MSTest.TestFramework.TestRunExtensions.xml" target="lib\netcoreapp1.0" />
+    <file src="..\src\TestRunEx\bin\release\net45\MSTest.TestFramework.TestRunExtensions.dll" target="lib\net45" />
+    <file src="..\src\TestRunEx\bin\release\net45\MSTest.TestFramework.TestRunExtensions.xml" target="lib\net45" />
+  </files>
+</package>
