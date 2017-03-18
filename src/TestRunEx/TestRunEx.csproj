@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.0;net45</TargetFrameworks>
+    <DocumentationFile>MSTest.TestFramework.TestRunExtensions.xml</DocumentationFile>
+    <AssemblyName>MSTest.TestFramework.TestRunExtensions</AssemblyName>
+    <RootNamespace>MSTest.TestFramework.TestRunExtensions</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.13" />
+  </ItemGroup>
+
+</Project>
