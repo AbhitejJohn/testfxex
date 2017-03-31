@@ -10,6 +10,7 @@
     <description>
 	 Test Run Extensions for the Microsoft Test Framework - MSTest V2
     </description>
+    <projectUrl>https://github.com/AbhitejJohn/testfxex</projectUrl>
     <tags>MSTest TestFramework Assertion Unittest MSTestV2 Test Testing TDD Framework</tags>
   </metadata>
   <files>
