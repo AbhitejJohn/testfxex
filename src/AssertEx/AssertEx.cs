@@ -1,6 +1,7 @@
 ﻿
-namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
+namespace MSTest.TestFramework.AssertExtensions
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Globalization;
     using System.Text;

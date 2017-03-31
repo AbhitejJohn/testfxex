@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
+﻿
+namespace MSTest.TestFramework.AssertExtensions
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     /// <summary>
     /// This class holds additional functionality that can be validated on an exception.
     /// </summary>
