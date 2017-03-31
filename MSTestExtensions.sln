@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunEx", "src\TestRunEx\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunExTests", "test\TestRunExTests\TestRunExTests.csproj", "{AC3AFF90-E789-4B5D-8171-DA79E165CFBD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packaging", "packaging", "{74EFF11A-72EE-41AE-805F-1153327B1D33}"
+	ProjectSection(SolutionItems) = preProject
+		nuspecs\AssertExtensions.nuspec = nuspecs\AssertExtensions.nuspec
+		nuspecs\TestRunExtensions.nuspec = nuspecs\TestRunExtensions.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -11,18 +11,13 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
     public static class AssertEx
     {
         /// <summary>
-        /// Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-        /// with the specified message and throws 
-        /// <code>
-        /// AssertFailedException
-        /// </code>
-        /// if code does not throw exception that contains the specified message or throws exception of type other than <typeparamref name="T"/>.
+        /// Tests whether the code specified by delegate <paramref name="action"/> throws exception of type 'T'
         /// </summary>
+        /// <param name="assert">
+        /// The assert class.
+        /// </param>
         /// <param name="action">
         /// Delegate to code to be tested and which is expected to throw exception.
-        /// </param>
-        /// <param name="message">
-        /// The message expected from the thrown exception.
         /// </param>
         /// <typeparam name="T">
         /// Type of exception expected to be thrown.
@@ -31,30 +26,23 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
         /// Thrown if <paramref name="action"/> does not throws exception of type <typeparamref name="T"/>.
         /// </exception>
         /// <returns>
-        /// The type of exception expected to be thrown.
+        /// The context assertion for further actions.
         /// </returns>
-        public static T ThrowsExceptionWithMessage<T>(Action action, string message) where T : Exception
+        public static ShouldThrow Throws<T>(this Assert assert, Action action) where T : Exception
         {
             var exception = Assert.ThrowsException<T>(action);
 
-            StringAssert.Contains(exception.Message, message);
-
-            return exception;
+            return new ShouldThrow(exception);
         }
 
         /// <summary>
-        /// Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception of type <typeparamref name="T"/> (and not of derived type)
-        /// with the specified message and throws 
-        /// <code>
-        /// AssertFailedException
-        /// </code>
-        /// if code does not throw exception that contains the specified message or throws exception of type other than <typeparamref name="T"/>.
+        /// Tests whether the code specified by delegate <paramref name="action"/> throws exception of type 'T'
         /// </summary>
+        /// <param name="assert">
+        /// The assert class.
+        /// </param>
         /// <param name="action">
         /// Delegate to code to be tested and which is expected to throw exception.
-        /// </param>
-        /// <param name="message">
-        /// The message expected from the thrown exception.
         /// </param>
         /// <typeparam name="T">
         /// Type of exception expected to be thrown.
@@ -63,21 +51,20 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
         /// Thrown if <paramref name="action"/> does not throws exception of type <typeparamref name="T"/>.
         /// </exception>
         /// <returns>
-        /// The type of exception expected to be thrown.
+        /// The context assertion for further actions.
         /// </returns>
-        public static T ThrowsExceptionWithMessage<T>(Func<object> action, string message) where T : Exception
+        public static ShouldThrow Throws<T>(this Assert assert, Func<object> action) where T : Exception
         {
-            return ThrowsExceptionWithMessage<T>(() => { action(); }, message);
+            return Throws<T>(assert, () => { action(); });
         }
 
         /// <summary>
-        /// Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception/has inner exception of type <typeparamref name="T"/> (and not of derived type)
-        /// and throws.
-        /// <code>
-        /// AssertFailedException
-        /// </code>
-        /// if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
+        /// Tests whether the code specified by delegate <paramref name="action"/> throws exact 
+        /// given exception/has inner exception of type <typeparamref name="T"/> (and not of derived type).
         /// </summary>
+        /// <param name="assert">
+        /// The assert class.
+        /// </param>
         /// <param name="action">
         /// Delegate to code to be tested and which is expected to throw exception.
         /// </param>
@@ -90,32 +77,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
         /// <returns>
         /// The type of exception expected to be thrown.
         /// </returns>
-        public static T ThrowsInnerException<T>(Func<object> action) where T : Exception
-        {
-            return ThrowsInnerException<T>(() => { action(); });
-        }
-
-        /// <summary>
-        /// Tests whether the code specified by delegate <paramref name="action"/> throws exact given exception/has inner exception of type <typeparamref name="T"/> (and not of derived type)
-        /// and throws.
-        /// <code>
-        /// AssertFailedException
-        /// </code>
-        /// if code does not throws exception or throws exception of type other than <typeparamref name="T"/>.
-        /// </summary>
-        /// <param name="action">
-        /// Delegate to code to be tested and which is expected to throw exception.
-        /// </param>
-        /// <typeparam name="T">
-        /// Type of exception expected to be thrown.
-        /// </typeparam>
-        /// <exception cref="AssertFailedException">
-        /// Thrown if <paramref name="action"/> does not throws exception of type <typeparamref name="T"/>.
-        /// </exception>
-        /// <returns>
-        /// The type of exception expected to be thrown.
-        /// </returns>
-        public static T ThrowsInnerException<T>(Action action) where T : Exception
+        public static ShouldThrow ThrowsInnerException<T>(this Assert assert, Action action) where T : Exception
         {
             string finalMessage;
 
@@ -133,7 +95,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
                     var exType = innerException.GetType();
                     if (typeof(T).Equals(exType))
                     {
-                        return (T)innerException;
+                        return new ShouldThrow((T)innerException);
                     }
                     if(exTypeBuilder.Length != 0)
                     {
@@ -164,6 +126,30 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting.Extensions
 
             // This will not hit, but need it for compiler.
             return null;
+        }
+
+        /// <summary>
+        /// Tests whether the code specified by delegate <paramref name="action"/> throws exact
+        /// exception/has inner exception of type <typeparamref name="T"/> (and not of derived type).
+        /// </summary>
+        /// <param name="assert">
+        /// The assert class.
+        /// </param>
+        /// <param name="action">
+        /// Delegate to code to be tested and which is expected to throw exception.
+        /// </param>
+        /// <typeparam name="T">
+        /// Type of exception expected to be thrown.
+        /// </typeparam>
+        /// <exception cref="AssertFailedException">
+        /// Thrown if <paramref name="action"/> does not throws exception/contain inner-exception of type <typeparamref name="T"/>.
+        /// </exception>
+        /// <returns>
+        /// The type of exception expected to be thrown.
+        /// </returns>
+        public static ShouldThrow ThrowsInnerException<T>(this Assert assert, Func<object> action) where T : Exception
+        {
+            return ThrowsInnerException<T>(assert, () => { action(); });
         }
     }
 }
