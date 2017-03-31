@@ -39,3 +39,4 @@ UpgradeLog*.htm
 # Packaged files.
 *.nupkg
 *.zip
+*.xml

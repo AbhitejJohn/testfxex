@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest.TestFramework" Version="1.1.13" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.14" />
   </ItemGroup>
 
 </Project>
