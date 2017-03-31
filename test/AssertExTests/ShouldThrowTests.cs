@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.TestTools.UnitTesting.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace AssertExTests
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using MSTest.TestFramework.AssertExtensions;
+
     [TestClass]
     public class ShouldThrowTests
     {

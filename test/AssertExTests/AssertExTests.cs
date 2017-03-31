@@ -1,9 +1,10 @@
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.TestTools.UnitTesting.Extensions;
 
 namespace AssertExTests
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using MSTest.TestFramework.AssertExtensions;
+
     [TestClass]
     public class AssertExTests
     {
