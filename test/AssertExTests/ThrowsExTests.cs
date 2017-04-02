@@ -6,7 +6,7 @@ namespace AssertExTests
     using MSTest.TestFramework.AssertExtensions;
 
     [TestClass]
-    public class AssertExTests
+    public class ThrowsExTests
     {
         [TestMethod]
         public void ThrowsShouldNotThrowIfExpectedExceptionIsThrown()
@@ -68,6 +68,37 @@ namespace AssertExTests
         public void ThrowsInnerExceptionShouldPassIfRightInnerExceptionIsThrown()
         {
             Assert.That.ThrowsInnerException<NullReferenceException>(() => { throw new ArgumentException("", new FormatException("",new NullReferenceException("something bombed."))); });
+        }
+
+        [TestMethod]
+        public void DoesNotThrowShouldNotThrowIfNoExcpetionIsThrown()
+        {
+            Assert.That.DoesNotThrow(() => { });
+        }
+
+        [TestMethod]
+        public void DoesNotThrowShouldThrowIfAnExcpetionIsThrown()
+        {
+            Assert.ThrowsException<AssertFailedException>(() => 
+                Assert.That.DoesNotThrow(() => 
+                    {
+                        throw new NullReferenceException();
+                    }));
+        }
+
+        [TestMethod]
+        public void DoesNotThrowWithActionShouldNotThrowIfNoExcpetionIsThrown()
+        {
+            Action action = () => { };
+            Assert.That.DoesNotThrow(action);
+        }
+
+        [TestMethod]
+        public void DoesNotThrowWithActionShouldThrowIfAnExcpetionIsThrown()
+        {
+            Action action = () => throw new NullReferenceException();
+            Assert.ThrowsException<AssertFailedException>(() =>
+                Assert.That.DoesNotThrow(action));
         }
     }
 }
