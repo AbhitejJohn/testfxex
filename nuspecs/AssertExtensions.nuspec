@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MSTest.Assert.Extensions</id>
-    <version>1.0.0-preview</version>
+    <version>1.0.1-preview</version>
     <title>MSTest.Assert.Extensions</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <authors>Abhitej John</authors>
