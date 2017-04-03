@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <SrcRoot Condition="$(SrcRoot) == ''">..\..\</SrcRoot>
+  </PropertyGroup>
+  <Import Project="$(SrcRoot)build/MSTestExtensions.targets" />
+  <PropertyGroup>
     <AssemblyName>MSTest.TestFramework.AssertExtensions</AssemblyName>
     <TargetFrameworks>netcoreapp1.0;net45</TargetFrameworks>
     <DocumentationFile>MSTest.TestFramework.AssertExtensions.xml</DocumentationFile>
