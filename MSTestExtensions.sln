@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EE240972-8CE6-401B-B580-8F513006C407}"
 EndProject
@@ -11,14 +11,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssertExTests", "test\Asser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssertEx", "src\AssertEx\AssertEx.csproj", "{F5778367-6652-405B-BAAF-319C42C4123F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunEx", "src\TestRunEx\TestRunEx.csproj", "{5C065EDA-88DF-4B7D-BCB3-3A1CB2B21936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestRunEx", "src\TestRunEx\TestRunEx.csproj", "{5C065EDA-88DF-4B7D-BCB3-3A1CB2B21936}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunExTests", "test\TestRunExTests\TestRunExTests.csproj", "{AC3AFF90-E789-4B5D-8171-DA79E165CFBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestRunExTests", "test\TestRunExTests\TestRunExTests.csproj", "{AC3AFF90-E789-4B5D-8171-DA79E165CFBD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packaging", "packaging", "{74EFF11A-72EE-41AE-805F-1153327B1D33}"
 	ProjectSection(SolutionItems) = preProject
 		nuspecs\AssertExtensions.nuspec = nuspecs\AssertExtensions.nuspec
 		nuspecs\TestRunExtensions.nuspec = nuspecs\TestRunExtensions.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{85F6F536-955F-488E-B737-5099BEB57F90}"
+	ProjectSection(SolutionItems) = preProject
+		build\MSTestExtensions.targets = build\MSTestExtensions.targets
 	EndProjectSection
 EndProject
 Global
