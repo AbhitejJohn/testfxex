@@ -123,7 +123,7 @@ namespace MSTest.TestFramework.AssertExtensions
                 "No exception thrown. {0} exception was expected",
                 typeof(T).Name);
 
-            Assert.Fail("Assert.ThrowsException {0}", finalMessage);
+            Assert.Fail("Assert.That.ThrowsInnerException {0}", finalMessage);
 
             // This will not hit, but need it for compiler.
             return null;

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>MSTest.TestRun.Extensions</id>
-    <version>1.0.0-preview</version>
+    <version>1.0.1-preview</version>
     <title>MSTest.TestRun.Extensions</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <authors>Abhitej John</authors>

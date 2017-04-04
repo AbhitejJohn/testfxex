@@ -9,6 +9,14 @@ namespace AssertExTests
     public class ShouldThrowTests
     {
         [TestMethod]
+        public void WithMessageShouldThrowOnNullExceptionMessage()
+        {
+            var st = new ShouldThrow(new ArgumentException("Something bad."));
+            Assert.ThrowsException<AssertFailedException>(() =>
+                st.WithMessage(null));
+        }
+
+        [TestMethod]
         public void WithMessageShouldThrowIfMessageIsNotPartOfTheExceptionMessage()
         {
             var st = new ShouldThrow(new ArgumentException("oh no, something bombed!!"));

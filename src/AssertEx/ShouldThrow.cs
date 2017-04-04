@@ -40,7 +40,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// </exception>
         public ShouldThrow WithMessage(string message)
         {
-            StringAssert.Contains(this.exception.Message, message);
+            this.VerifyContains("message", this.exception.Message, message);
 
             return this;
         }
@@ -65,20 +65,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// <returns></returns>
         public ShouldThrow WithStackTrace(string stackTrace)
         {
-            if(this.exception.StackTrace == null && stackTrace == null)
-            {
-                return this;
-            }
-            else if(this.exception.StackTrace == null)
-            {
-                throw new AssertFailedException("The exception does not have a stack trace.");
-            }
-            else if(stackTrace == null)
-            {
-                throw new AssertFailedException("stackTrace is not null.");
-            }
-
-            StringAssert.Contains(this.exception.StackTrace, stackTrace);
+            this.VerifyContains("stack trace", this.exception.StackTrace, stackTrace);
 
             return this;
         }
@@ -94,6 +81,33 @@ namespace MSTest.TestFramework.AssertExtensions
             Assert.AreEqual(typeof(T), this.exception.InnerException.GetType());
 
             return this;
+        }
+
+        /// <summary>
+        /// Verify if a string contains another string. Throws exception if not.
+        /// </summary>
+        /// <param name="propertyName">The name of the string/property being verified.</param>
+        /// <param name="propertyValue">Its value.</param>
+        /// <param name="substring">The substring to verify for.</param>
+        private void VerifyContains(string propertyName, string propertyValue, string substring)
+        {
+            if (propertyValue == null && substring == null)
+            {
+                return;
+            }
+            else if (propertyValue == null)
+            {
+                throw new AssertFailedException(string.Concat("The exception has no ", propertyName));
+            }
+            else if (substring == null)
+            {
+                throw new AssertFailedException(string.Concat("The exceptions ", propertyValue, " has a non null value."));
+            }
+
+            if(!propertyValue.Contains(substring))
+            {
+                throw new AssertFailedException(string.Concat("The exceptions ", propertyName, "\"", propertyValue, "\" does not contain \"", substring, "\""));
+            }
         }
     }
 }
