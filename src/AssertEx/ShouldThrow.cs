@@ -54,7 +54,15 @@ namespace MSTest.TestFramework.AssertExtensions
         /// </exception>
         public ShouldThrow WithExactMessage(string message)
         {
-            Assert.AreEqual(this.exception.Message, message);
+            if(string.Compare(this.exception.Message, message) != 0)
+            {
+                AssertionFailure.Handle(
+                    string.Format(
+                        "The exception message \"{0}\" is not equivalent to \"{1}\"",
+                        this.exception.Message,
+                        message));
+            }
+
             return this;
         }
 
@@ -77,8 +85,14 @@ namespace MSTest.TestFramework.AssertExtensions
         /// <returns></returns>
         public ShouldThrow WithInnerException<T>() where T:Exception
         {
-            Assert.IsNotNull(this.exception.InnerException, "Inner Exception is null.");
-            Assert.AreEqual(typeof(T), this.exception.InnerException.GetType());
+            if(this.exception.InnerException == null)
+            {
+                AssertionFailure.Handle("The inner exception is null.");
+            }
+            if(!typeof(T).Equals(this.exception.InnerException.GetType()))
+            {
+                AssertionFailure.Handle(string.Format("The inner exception \"{0}\" is not of type \"{1}\"", this.exception.InnerException.GetType(), typeof(T)));
+            }
 
             return this;
         }
@@ -97,16 +111,16 @@ namespace MSTest.TestFramework.AssertExtensions
             }
             else if (propertyValue == null)
             {
-                throw new AssertFailedException(string.Concat("The exception has no ", propertyName));
+                AssertionFailure.Handle(string.Format("The exception has no {0}", propertyName));
             }
             else if (substring == null)
             {
-                throw new AssertFailedException(string.Concat("The exceptions ", propertyValue, " has a non null value."));
+                AssertionFailure.Handle(string.Format("The exceptions {0} has a non null value.", propertyName));
             }
 
             if(!propertyValue.Contains(substring))
             {
-                throw new AssertFailedException(string.Concat("The exceptions ", propertyName, "\"", propertyValue, "\" does not contain \"", substring, "\""));
+                AssertionFailure.Handle(string.Format("The exceptions {0} \"{1}\" does not contain \"{2}\"", propertyName, propertyValue, substring));
             }
         }
     }
