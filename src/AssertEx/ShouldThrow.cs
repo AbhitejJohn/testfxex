@@ -40,7 +40,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// </exception>
         public ShouldThrow WithMessage(string message)
         {
-            StringAssert.Contains(this.exception.Message, message);
+            this.VerifyContains("message", this.exception.Message, message);
 
             return this;
         }
@@ -54,7 +54,15 @@ namespace MSTest.TestFramework.AssertExtensions
         /// </exception>
         public ShouldThrow WithExactMessage(string message)
         {
-            Assert.AreEqual(this.exception.Message, message);
+            if(string.Compare(this.exception.Message, message) != 0)
+            {
+                AssertionFailure.Handle(
+                    string.Format(
+                        "The exception message \"{0}\" is not equivalent to \"{1}\"",
+                        this.exception.Message,
+                        message));
+            }
+
             return this;
         }
 
@@ -65,20 +73,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// <returns></returns>
         public ShouldThrow WithStackTrace(string stackTrace)
         {
-            if(this.exception.StackTrace == null && stackTrace == null)
-            {
-                return this;
-            }
-            else if(this.exception.StackTrace == null)
-            {
-                throw new AssertFailedException("The exception does not have a stack trace.");
-            }
-            else if(stackTrace == null)
-            {
-                throw new AssertFailedException("stackTrace is not null.");
-            }
-
-            StringAssert.Contains(this.exception.StackTrace, stackTrace);
+            this.VerifyContains("stack trace", this.exception.StackTrace, stackTrace);
 
             return this;
         }
@@ -90,10 +85,43 @@ namespace MSTest.TestFramework.AssertExtensions
         /// <returns></returns>
         public ShouldThrow WithInnerException<T>() where T:Exception
         {
-            Assert.IsNotNull(this.exception.InnerException, "Inner Exception is null.");
-            Assert.AreEqual(typeof(T), this.exception.InnerException.GetType());
+            if(this.exception.InnerException == null)
+            {
+                AssertionFailure.Handle("The inner exception is null.");
+            }
+            if(!typeof(T).Equals(this.exception.InnerException.GetType()))
+            {
+                AssertionFailure.Handle(string.Format("The inner exception \"{0}\" is not of type \"{1}\"", this.exception.InnerException.GetType(), typeof(T)));
+            }
 
             return this;
+        }
+
+        /// <summary>
+        /// Verify if a string contains another string. Throws exception if not.
+        /// </summary>
+        /// <param name="propertyName">The name of the string/property being verified.</param>
+        /// <param name="propertyValue">Its value.</param>
+        /// <param name="substring">The substring to verify for.</param>
+        private void VerifyContains(string propertyName, string propertyValue, string substring)
+        {
+            if (propertyValue == null && substring == null)
+            {
+                return;
+            }
+            else if (propertyValue == null)
+            {
+                AssertionFailure.Handle(string.Format("The exception has no {0}", propertyName));
+            }
+            else if (substring == null)
+            {
+                AssertionFailure.Handle(string.Format("The exceptions {0} has a non null value.", propertyName));
+            }
+
+            if(!propertyValue.Contains(substring))
+            {
+                AssertionFailure.Handle(string.Format("The exceptions {0} \"{1}\" does not contain \"{2}\"", propertyName, propertyValue, substring));
+            }
         }
     }
 }

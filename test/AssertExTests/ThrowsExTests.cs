@@ -17,9 +17,10 @@ namespace AssertExTests
         [TestMethod]
         public void ThrowsShouldThrowIfUnexpectedExceptionIsThrown()
         {
-            Assert.ThrowsException<AssertFailedException>(() =>
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
                 Assert.That.Throws<ArgumentException>(() => 
-                    { throw new NullReferenceException(); }));
+                    { throw new NullReferenceException(); }),
+                    "Assert.ThrowsException failed. Threw exception NullReferenceException, but exception ArgumentException was expected. \r\nException Message: Object reference not set to an instance of an object.");
         }
 
         [TestMethod]
@@ -33,29 +34,28 @@ namespace AssertExTests
         public void ThrowsForActionShouldThrowIfUnexpectedExceptionIsThrown()
         {
             Action a = () => { throw new NullReferenceException(); };
-            Assert.ThrowsException<AssertFailedException>(() => 
-                Assert.That.Throws<ArgumentException>(a));
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() => 
+                Assert.That.Throws<ArgumentException>(a),
+                "Assert.ThrowsException failed. Threw exception NullReferenceException, but exception ArgumentException was expected. \r\nException Message: Object reference not set to an instance of an object.");
         }
 
         [TestMethod]
         public void ThrowsInnerExceptionShouldThrowIfExpectedExceptionIsNotThrown()
         {
-            var exception = Assert.ThrowsException<AssertFailedException>(() =>
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
                 Assert.That.ThrowsInnerException<NullReferenceException>(() => 
                     {
                         throw new ArgumentException("", new FormatException());
-                    }));
-
-            StringAssert.Contains(exception.Message, "Could not find Exception of type NullReferenceException in exception chain System.ArgumentException, System.FormatException");
+                    }),
+                    "Could not find Exception of type NullReferenceException in exception chain System.ArgumentException, System.FormatException");
         }
 
         [TestMethod]
         public void ThrowsInnerExceptionShouldThrowIfNoExceptionIsThrown()
         {
-            var exception = Assert.ThrowsException<AssertFailedException>(() =>
-                Assert.That.ThrowsInnerException<NullReferenceException>(() => { }));
-
-            StringAssert.Contains(exception.Message, "No exception thrown. NullReferenceException exception was expected");
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
+                Assert.That.ThrowsInnerException<NullReferenceException>(() => { }),
+                "No exception thrown. NullReferenceException exception was expected");
         }
 
         [TestMethod]
@@ -79,11 +79,12 @@ namespace AssertExTests
         [TestMethod]
         public void DoesNotThrowShouldThrowIfAnExcpetionIsThrown()
         {
-            Assert.ThrowsException<AssertFailedException>(() => 
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() => 
                 Assert.That.DoesNotThrow(() => 
                     {
                         throw new NullReferenceException();
-                    }));
+                    }),
+                    "An unexpected exception \"System.NullReferenceException\" was thrown: Object reference not set to an instance of an object.");
         }
 
         [TestMethod]
@@ -97,8 +98,9 @@ namespace AssertExTests
         public void DoesNotThrowWithActionShouldThrowIfAnExcpetionIsThrown()
         {
             Action action = () => throw new NullReferenceException();
-            Assert.ThrowsException<AssertFailedException>(() =>
-                Assert.That.DoesNotThrow(action));
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
+                Assert.That.DoesNotThrow(action),
+                "An unexpected exception \"System.NullReferenceException\" was thrown: Object reference not set to an instance of an object.");
         }
     }
 }

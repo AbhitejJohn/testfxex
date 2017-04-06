@@ -9,10 +9,21 @@ namespace AssertExTests
     public class ShouldThrowTests
     {
         [TestMethod]
+        public void WithMessageShouldThrowOnNullExceptionMessage()
+        {
+            var st = new ShouldThrow(new ArgumentException("Something bad."));
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
+                st.WithMessage(null),
+                "The exceptions message has a non null value.");
+        }
+
+        [TestMethod]
         public void WithMessageShouldThrowIfMessageIsNotPartOfTheExceptionMessage()
         {
             var st = new ShouldThrow(new ArgumentException("oh no, something bombed!!"));
-            Assert.ThrowsException<AssertFailedException>(() => st.WithMessage("Everything is bright."));
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
+                st.WithMessage("Everything is bright."),
+                "The exceptions message \"oh no, something bombed!!\" does not contain \"Everything is bright.\"");
         }
 
         [TestMethod]
@@ -26,7 +37,9 @@ namespace AssertExTests
         public void WithExactMessageShouldThrowIfMessageIsNotEqualToTheExceptionMessage()
         {
             var st = new ShouldThrow(new ArgumentException("oh no, something bombed!!"));
-            Assert.ThrowsException<AssertFailedException>(() => st.WithExactMessage("something bombed!"));
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() => 
+                st.WithExactMessage("something bombed!"),
+                "The exception message \"oh no, something bombed!!\" is not equivalent to \"something bombed!\"");
         }
 
         [TestMethod]
@@ -47,15 +60,18 @@ namespace AssertExTests
         public void WithStackTraceShouldThrowOnNullExceptionStackTrace()
         {
             var st = new ShouldThrow(new TestableException("Random Location."));
-            Assert.ThrowsException<AssertFailedException>(() =>
-                st.WithStackTrace(null));
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
+                st.WithStackTrace(null),
+                "The exceptions stack trace has a non null value.");
         }
 
         [TestMethod]
         public void WithStackTraceShouldThrowIfStackTraceIsNotPartOfTheExceptionStackTrace()
         {
             var st = new ShouldThrow(new TestableException("oh no, something bombed!!"));
-            Assert.ThrowsException<AssertFailedException>(() => st.WithStackTrace("Everything is bright."));
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() => 
+                st.WithStackTrace("Everything is bright."),
+                "The exceptions stack trace \"oh no, something bombed!!\" does not contain \"Everything is bright.\"");
         }
 
         [TestMethod]
@@ -69,16 +85,18 @@ namespace AssertExTests
         public void WithInnerExceptionShouldThrowIfInnerExceptionIsNull()
         {
             var st = new ShouldThrow(new ArgumentException());
-            Assert.ThrowsException<AssertFailedException>(() =>
-                st.WithInnerException<NullReferenceException>());
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
+                st.WithInnerException<NullReferenceException>(),
+                "The inner exception is null.");
         }
 
         [TestMethod]
         public void WithInnerExceptionShouldThrowIfInnerExceptionDoesNotMatch()
         {
             var st = new ShouldThrow(new ArgumentException("", new OutOfMemoryException()));
-            Assert.ThrowsException<AssertFailedException>(() =>
-                st.WithInnerException<NullReferenceException>());
+            ExceptionUtilities.ThrowsExceptionWithMessage<AssertFailedException>(() =>
+                st.WithInnerException<NullReferenceException>(),
+                "The inner exception \"System.OutOfMemoryException\" is not of type \"System.NullReferenceException\"");
         }
 
         [TestMethod]

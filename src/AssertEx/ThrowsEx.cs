@@ -115,7 +115,7 @@ namespace MSTest.TestFramework.AssertExtensions
                     ex.Message,
                     ex.StackTrace);
 
-                Assert.Fail("Assert.That.ThrowsInnerException {0}", finalMessage);
+                AssertionFailure.Handle(string.Format("Assert.That.ThrowsInnerException {0}", finalMessage));
             }
 
             finalMessage = string.Format(
@@ -123,7 +123,7 @@ namespace MSTest.TestFramework.AssertExtensions
                 "No exception thrown. {0} exception was expected",
                 typeof(T).Name);
 
-            Assert.Fail("Assert.ThrowsException {0}", finalMessage);
+            AssertionFailure.Handle(string.Format("Assert.That.ThrowsInnerException {0}", finalMessage));
 
             // This will not hit, but need it for compiler.
             return null;
@@ -166,7 +166,12 @@ namespace MSTest.TestFramework.AssertExtensions
             }
             catch(Exception exception)
             {
-                throw new AssertFailedException("An unexpected exception was thrown ", exception);
+                AssertionFailure.Handle(
+                    string.Format(
+                        "An unexpected exception \"{0}\" was thrown: {1}", 
+                        exception.GetType(), 
+                        exception.Message), 
+                    exception);
             }
         }
 
