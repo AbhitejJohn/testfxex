@@ -1,8 +1,13 @@
 # testfxex
 This repo contains extensions and samples for the MSTest V2 framework.
 
+### API Documentation
+- [Assert Extensions](https://github.com/AbhitejJohn/testfxex/blob/master/src/AssertEx/README.md)
+- [Test Run Extensions](https://github.com/AbhitejJohn/testfxex/blob/master/src/TestRunEx/README.md)
+
+
 ### Releases
-The following extensions are shipping on nuget.org from this repo:
+The following extensions are shipped on nuget.org from this repo:
 
 | Package | link |
 |:----------------:|:------------------:|
