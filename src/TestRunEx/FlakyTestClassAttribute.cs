@@ -15,17 +15,17 @@ namespace MSTest.TestFramework.TestRunExtensions
         /// <summary>
         /// The constructor.
         /// </summary>
-        /// <param name="retryCount">The maximum number of times to re-try making the test pass.</param>
+        /// <param name="retryCount">The maximum number of times to re-try to make the test pass.</param>
         public FlakyTestClassAttribute(int retryCount)
         {
             this.retryCount = retryCount;
         }
 
         /// <summary>
-        /// Gets the FlakyTestMethodAttribute of not already.
+        /// Gets the FlakyTestMethodAttribute if not already.
         /// </summary>
         /// <param name="testMethodAttribute"></param>
-        /// <returns></returns>
+        /// <returns>The FlakyTestMethodAttribute attribute.</returns>
         public override TestMethodAttribute GetTestMethodAttribute(TestMethodAttribute testMethodAttribute)
         {
             if (testMethodAttribute is FlakyTestMethodAttribute) return testMethodAttribute;
