@@ -38,6 +38,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// <exception cref="AssertFailedException">
         /// When the message is not part of the exception message.
         /// </exception>
+        /// <returns>The current instance of the ShouldThrow class so this can be chained with other asserts.</returns>
         public ShouldThrow WithMessage(string message)
         {
             this.VerifyContains("message", this.exception.Message, message);
@@ -52,6 +53,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// <exception cref="AssertFailedException">
         /// When the message is not exactly similar to the exception message.
         /// </exception>
+        /// <returns>The current instance of the ShouldThrow class so this can be chained with other asserts.</returns>
         public ShouldThrow WithExactMessage(string message)
         {
             if(string.Compare(this.exception.Message, message) != 0)
@@ -71,6 +73,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// </summary>
         /// <param name="stackTrace">The stack trace.</param>
         /// <returns></returns>
+        /// <returns>The current instance of the ShouldThrow class so this can be chained with other asserts.</returns>
         public ShouldThrow WithStackTrace(string stackTrace)
         {
             this.VerifyContains("stack trace", this.exception.StackTrace, stackTrace);
@@ -82,7 +85,7 @@ namespace MSTest.TestFramework.AssertExtensions
         /// Ensures that the exception contains an inner exception of the specified type.
         /// </summary>
         /// <typeparam name="T">The expected type of the inner exception.</typeparam>
-        /// <returns></returns>
+        /// <returns>The current instance of the ShouldThrow class so this can be chained with other asserts.</returns>
         public ShouldThrow WithInnerException<T>() where T:Exception
         {
             if(this.exception.InnerException == null)
